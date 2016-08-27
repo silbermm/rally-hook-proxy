@@ -16,6 +16,8 @@ defmodule RallyHookProxy.Router do
   scope "/", RallyHookProxy do
     pipe_through :browser # Use the default browser stack
 
+    resources "/registrations", RegistrationController, only: [:new, :create]
+
     get "/", PageController, :index
   end
 
