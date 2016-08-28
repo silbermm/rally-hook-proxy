@@ -39,4 +39,13 @@ defmodule RallyHookProxy.ConnCase do
 
     {:ok, conn: Phoenix.ConnTest.conn()}
   end
+
+  def guardian_login(user, token \\ :token, opts \\ []) do
+    Phoenix.ConnTest.conn()
+      |> Phoenix.ConnTest.bypass_through(RallyHookProxy.Router, [:browser])
+      |> Phoenix.ConnTest.get("/")
+      |> Guardian.Plug.sign_in(user, token, opts)
+      |> Phoenix.ConnTest.send_resp(200, "Flush the session yo")
+      |> Phoenix.ConnTest.recycle()
+  end
 end

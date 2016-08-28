@@ -9,14 +9,23 @@ defmodule RallyHookProxy.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :browser_auth do
+    plug Guardian.Plug.VerifySession
+    plug Guardian.Plug.LoadResource
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
 
   scope "/", RallyHookProxy do
-    pipe_through :browser # Use the default browser stack
+    pipe_through [:browser, :browser_auth]
 
     resources "/registrations", RegistrationController, only: [:new, :create]
+
+    get  "/logout", SessionController, :logout
+    get  "/login", SessionController, :index
+    post "/login", SessionController, :login
 
     get "/", PageController, :index
   end

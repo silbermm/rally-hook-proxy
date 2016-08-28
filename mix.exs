@@ -37,7 +37,8 @@ defmodule RallyHookProxy.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
-     {:comeonin, "~> 1.0"}
+     {:comeonin, "~> 1.0"},
+     {:guardian, "~> 0.12.0"}
    ]
   end
 

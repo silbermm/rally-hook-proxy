@@ -3,13 +3,14 @@ defmodule RallyHookProxy.User do
 
   schema "users" do
     field :email, :string
+    field :rally_token, :string
     field :crypted_password, :string
     field :password, :string, virtual: true
     timestamps
   end
 
   @required_fields ~w(email password)
-  @optional_fields ~w()
+  @optional_fields ~w(rally_token)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

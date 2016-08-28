@@ -3,7 +3,7 @@ defmodule RallyHookProxy.UserTest do
 
   alias RallyHookProxy.User
 
-  @valid_attrs %{crypted_password: "some content", email: "some content"}
+  @valid_attrs %{password: "fdsaf", crypted_password: "some content", email: "some@content.com"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
