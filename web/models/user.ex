@@ -1,6 +1,9 @@
 defmodule RallyHookProxy.User do
   use RallyHookProxy.Web, :model
 
+  alias RallyHookProxy.Repo
+  import Ecto.Query, only: [from: 2]
+
   schema "users" do
     field :email, :string
     field :rally_token, :string
@@ -24,5 +27,9 @@ defmodule RallyHookProxy.User do
     |> unique_constraint(:email)
     |> validate_format(:email, ~r/@/)
     |> validate_length(:password, min: 5)
+  end
+
+  def find_by_username(username) do
+    Repo.get_by(__MODULE__, email: username)
   end
 end

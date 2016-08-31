@@ -1,0 +1,32 @@
+<h1> Profile </h1>
+
+<%= form_for @changeset, profile_path(@conn, :update), fn f -> %>
+  <%= if f.errors != [] do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below:</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <label>Email</label>
+    <%= email_input f, :email, class: "form-control" %>
+    <%= error_tag f, :email %>
+  </div>
+
+  <div class="form-group">
+    <label>Password</label>
+    <%= password_input f, :password, class: "form-control" %>
+    <%= error_tag f, :password %>
+  </div>
+
+  <div class="form-group">
+    <label> Rally API Key </label>
+    <%= text_input f, :rally_token, class: "form-control" %>
+    <%= error_tag f, :rally_token %>
+    <span id="helpBlock" class="help-block">Your can get a Rally API key from <a href="https://rally1.rallydev.com/login/accounts/index.html#/keys"> Rally </a>.</span>
+  </div>
+  
+  <div class="form-group">
+    <%= submit "Update", class: "btn btn-primary" %>
+  </div>
+<% end %>

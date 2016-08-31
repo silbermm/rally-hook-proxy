@@ -27,6 +27,9 @@ defmodule RallyHookProxy.Router do
     get  "/login", SessionController, :index
     post "/login", SessionController, :login
 
+    get "/profile", ProfileController, :index
+    put "/profile", ProfileController, :update
+
     get "/", PageController, :index
   end
 
