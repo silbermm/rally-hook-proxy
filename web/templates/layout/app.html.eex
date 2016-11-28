@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello RallyHookProxy!</title>
+    <title>RallyHookProxy</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
@@ -16,11 +16,17 @@
       <header class="header">
         <nav role="navigation">
           <ul class="nav nav-pills pull-right">
-            <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
-            <li> <%= link "Register", to: registration_path(@conn, :new) %> </li>
+            <%= if user_info @conn do %>
+              <li> <%= link user_info(@conn), to: profile_path(@conn, :index) %> </li>
+            <% else %>
+              <li> <%= link "Register", to: registration_path(@conn, :new) %> </li>
+            <% end %>
           </ul>
         </nav>
-        <span class="logo"></span>
+        <span class="logo">
+          <img src="<%= static_path(@conn, "/images/pirate_hook.jpg") %>" />
+          <span class="title"> Rally Webhook Proxy </span>
+        </span>
       </header>
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>

@@ -18,6 +18,13 @@ defmodule RallyHookProxy.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/falcons", RallyHookProxy do
+    pipe_through [:api]
+
+    post "/accepted", WebHookController, :handler
+  end
+
+
   scope "/", RallyHookProxy do
     pipe_through [:browser, :browser_auth]
 
@@ -30,10 +37,12 @@ defmodule RallyHookProxy.Router do
     get "/profile", ProfileController, :index
     put "/profile", ProfileController, :update
 
+    get "/profile/webhooks", WebHookController, :index
+    
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
+    # Other scopes may use custom stacks.
   # scope "/api", RallyHookProxy do
   #   pipe_through :api
   # end

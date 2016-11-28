@@ -27,9 +27,16 @@ form.link, form.button {
   height: 71px;
   display: inline-block;
   margin-bottom: 1em;
-  background-image: url("/images/phoenix.png");
-  background-size: 519px 71px;
 }
+
+.logo img {
+  width: 85px;
+}
+
+.logo .title {
+  font-size: 40px;
+}
+
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,

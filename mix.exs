@@ -19,7 +19,7 @@ defmodule RallyHookProxy.Mixfile do
   def application do
     [mod: {RallyHookProxy, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex]]
+                    :phoenix_ecto, :postgrex, :rallex]]
   end
 
   # Specifies which paths to compile per environment.
@@ -38,7 +38,9 @@ defmodule RallyHookProxy.Mixfile do
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
      {:comeonin, "~> 1.0"},
-     {:guardian, "~> 0.12.0"}
+     {:guardian, "~> 0.12.0"},
+     {:rallex, git: "git://github.com/silbermm/rallex"},
+     {:ex_machina, "~> 0.6", only: :test}
    ]
   end
 

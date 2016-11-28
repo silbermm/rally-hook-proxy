@@ -15,6 +15,8 @@ defmodule RallyHookProxy.ConnCase do
 
   use ExUnit.CaseTemplate
 
+  require Phoenix.ConnTest
+
   using do
     quote do
       # Import conveniences for testing with connections
@@ -29,6 +31,21 @@ defmodule RallyHookProxy.ConnCase do
 
       # The default endpoint for testing
       @endpoint RallyHookProxy.Endpoint
+
+      def guardian_login(%RallyHookProxy.User{} = user), do: guardian_login(conn(), user, :token, [])
+      def guardian_login(%RallyHookProxy.User{} = user, token), do: guardian_login(conn(), user, token, [])
+      def guardian_login(%RallyHookProxy.User{} = user, token, opts), do: guardian_login(conn(), user, token, opts)
+
+      def guardian_login(%Plug.Conn{} = conn, user), do: guardian_login(conn, user, :token, [])
+      def guardian_login(%Plug.Conn{} = conn, user, token), do: guardian_login(conn, user, token, [])
+      def guardian_login(%Plug.Conn{} = conn, user, token, opts) do
+        conn
+          |> bypass_through(RallyHookProxy.Router, [:browser])
+          |> get("/")
+          |> Guardian.Plug.sign_in(user, token, opts)
+          |> send_resp(200, "Flush the session yo")
+          |> recycle()
+      end
     end
   end
 
@@ -40,12 +57,4 @@ defmodule RallyHookProxy.ConnCase do
     {:ok, conn: Phoenix.ConnTest.conn()}
   end
 
-  def guardian_login(user, token \\ :token, opts \\ []) do
-    Phoenix.ConnTest.conn()
-      |> Phoenix.ConnTest.bypass_through(RallyHookProxy.Router, [:browser])
-      |> Phoenix.ConnTest.get("/")
-      |> Guardian.Plug.sign_in(user, token, opts)
-      |> Phoenix.ConnTest.send_resp(200, "Flush the session yo")
-      |> Phoenix.ConnTest.recycle()
-  end
 end
