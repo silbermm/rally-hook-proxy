@@ -19,4 +19,12 @@ defmodule RallyHookProxy.ProfileControllerTest do
     assert html_response(conn, 302)
   end
 
+  test "should update rally_key", %{ user: user } do
+    conn = guardian_login(user)
+    user = %{ user | rally_token: "new_updated"}
+    conn = conn |> put("/profile", %{ "user" => user })
+    assert html_response(conn, 200) =~ "new_updated"
+    assert conn.assigns.changeset.model.rally_token == "new_updated"
+  end
+
 end

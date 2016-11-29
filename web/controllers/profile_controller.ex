@@ -13,7 +13,7 @@ defmodule RallyHookProxy.ProfileController do
 
   def update(conn, %{"user" => user_params}) do
     user = Guardian.Plug.current_resource(conn)
-    user = %User{ user | rally_token: user_params["rally_token"] }
+    user = %User{ user | rally_token: user_params.rally_token }
     case Repo.update(user) do
       {:ok, user} ->
         user = User.changeset(user)

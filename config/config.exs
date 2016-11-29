@@ -14,6 +14,9 @@ config :rally_hook_proxy, RallyHookProxy.Endpoint,
   pubsub: [name: RallyHookProxy.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
+config :rally_hook_proxy,
+  rally_webhooks: Rallex.Webhooks
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

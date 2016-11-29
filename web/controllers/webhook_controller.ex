@@ -6,6 +6,8 @@ defmodule RallyHookProxy.WebHookController do
 
   plug Guardian.Plug.EnsureAuthenticated, handler: UnauthenticatedController
 
+  @webhooks Application.get_env(:rally_hook_proxy, :rally_webhooks)
+
   def index(conn, params) do
     # does the current user have a rally key configured?
     guser = Guardian.Plug.current_resource(conn)
@@ -14,7 +16,7 @@ defmodule RallyHookProxy.WebHookController do
       |> put_flash(:info, "You must first configure your Rally Api Key")
       |> redirect(to: "/profile")
     else
-      webhooks = case Rallex.Webhooks.list(guser.rally_token) do
+      webhooks = case @webhooks.list(guser.rally_token) do
         {:ok, %{"Results" => response}} -> response
         {:error, err} -> []
       end

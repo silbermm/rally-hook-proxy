@@ -6,6 +6,9 @@ config :rally_hook_proxy, RallyHookProxy.Endpoint,
   http: [port: 4001],
   server: false
 
+config :rally_hook_proxy,
+  rally_webhooks: RallyHookProxy.FakeWebhooks
+
 # Print only warnings and errors during test
 config :logger, level: :warn
 
