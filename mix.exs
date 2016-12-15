@@ -40,7 +40,9 @@ defmodule RallyHookProxy.Mixfile do
      {:comeonin, "~> 1.0"},
      {:guardian, "~> 0.12.0"},
      {:rallex, git: "git://github.com/silbermm/rallex"},
-     {:ex_machina, "~> 0.6", only: :test}
+     {:ex_machina, "~> 0.6", only: :test},
+     {:mix_test_watch, "~> 0.2", only: :dev},
+     {:distillery, "~> 1.0"}
    ]
   end
 
