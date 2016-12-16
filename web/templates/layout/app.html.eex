@@ -19,6 +19,7 @@
             <%= if user_info @conn do %>
               <li> <%= link user_info(@conn), to: profile_path(@conn, :index) %> </li>
             <% else %>
+              <li> <%= link "Login", to: session_path(@conn, :index) %> </li>
               <li> <%= link "Register", to: registration_path(@conn, :new) %> </li>
             <% end %>
           </ul>
